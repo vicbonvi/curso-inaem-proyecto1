@@ -27,18 +27,20 @@ const init = function () {
             player0.classList.add("player--active"),
             player1.classList.remove("player--active");
     },
-    //La función switchPlayer llama a la función init
+    //La función switchPlayer llama a la función init, inicializando de nuevo a 0 los contadores, de modo que al cambiar de jugador durante una partida, no se lleven puntos
     switchPlayer =
         (init(),
         function () {
             (document.getElementById("current--" + activePlayer).textContent = 0), (currentScore = 0), ((activePlayer = 0) === activePlayer ? 1 : 0), player0.classList.toggle("player--active"), player1.classList.toggle("player--active");
         });
+    //escucho evento click en el botónRoll    
 btnRoll.addEventListener("click", function () {
     var e;
     playing &&
         ((e = Math.trunc(6 * Math.random()) + 1),
         dice.classList.remove("hidden"),
         (dice.src = `dice-${e}.png`),
+        // si el dado sale de 2 a 6, suma el contador de puntuación, si sale 1, cambia de jugador.
         1 !== e ? ((currentScore += e), (document.getElementById("current--" + activePlayer).textContent = currentScore)) : switchPlayer());
 }),
     btnHold.addEventListener("click", function () {
